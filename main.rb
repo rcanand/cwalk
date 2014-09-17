@@ -1,6 +1,7 @@
 #! /usr/bin/env ruby
 require 'byebug'
 require 'optparse'
+require 'readline'
 require_relative 'folder_parser'
 require_relative 'name_checker'
 require_relative 'func_def'
@@ -33,8 +34,7 @@ def main options
   prompt = "cwalk(q to exit)> "
   while(cwalk.cmd != 'q')  
     cwalk.run
-    print prompt
-    cwalk.cmd = gets.chomp
+    cwalk.cmd = Readline.readline(prompt, true)
   end
 end
 

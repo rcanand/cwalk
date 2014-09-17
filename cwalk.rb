@@ -109,7 +109,7 @@ class CWalk
         ln.number == line_number
       end
     
-      puts "\n\nIn #{f.path}:#{line_number}\n\n#{l.func}\n\n" if((!l.nil?) && (!l.empty?) && l.number == line_number)
+      puts "\n\nIn #{f.path}:#{line_number}\n\n#{l.func}\n\n" if((!l.nil?) && (!l.func.empty?) && l.number == line_number)
     end
   end
   
