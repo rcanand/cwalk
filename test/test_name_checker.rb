@@ -6,7 +6,7 @@ class TestNameChecker < MiniTest::Test
   def test_will_verify_valid_names
     ["foo", "main", "foo_bar", "main_foo", "auto_main", " foo ", "name1", "_name"].each do |name|
       assert_silent{NameChecker.new(name)}
-      assert_equal(NameChecker.new(name).name, name.chomp)
+      assert_equal(name.chomp, NameChecker.new(name).name)
     end
   end
   
