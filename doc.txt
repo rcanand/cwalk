@@ -1,0 +1,31 @@
+cwalk
+
+A program to walk through c code, one function definition at a time
+
+Usage:
+
+$ cwalk -p path/to/project/folder -f function_name
+
+All parameters are optional. 
+
+Displays all definitions of specified function (default is main) in specified folder (default is .). You then get a prompt (cwalk >) where you may enter:
+
+- a folder path, which then searches in the new folder for the current function
+- a function name, which then searches in the current folder for the new function
+- a file name (under the current folder), to find all definitions of current function in a file of that name under current folder
+- a file name followed by line number (foo.c:12) to find the current function at that file:line in current folder
+- a line number to display the current function at that line number in all current files
+- the letter q to quit the application
+
+Potential features:
+
+- support other languages beyond C
+- add history support - to go back and forward between commands
+- add autocomplete to complete commands automatically
+
+
+
+
+
+
+

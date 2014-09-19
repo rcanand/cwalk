@@ -1,31 +1,109 @@
-cwalk
+use cases:
 
-A program to walk through c code, one function definition at a time
+1. cwalk (with no params) in a folder with valid results
 
-Usage:
+# displays results for defaults - path = "." and func_name = "main"
 
-$ cwalk -p path/to/project/folder -f function_name
+Fri Sep 19 18:46:51 IST 2014
+Status: OK
 
-All parameters are optional. 
+2. cwalk -p relative/or/absolute/path/to/project/folder1
 
-Displays all definitions of specified function (default is main) in specified folder (default is .). You then get a prompt (cwalk >) where you may enter:
+# displays results for default func_name("main") in specified path 
 
-- a folder path, which then searches in the new folder for the current function
-- a function name, which then searches in the current folder for the new function
-- a file name (under the current folder), to find all definitions of current function in a file of that name under current folder
-- a file name followed by line number (foo.c:12) to find the current function at that file:line in current folder
-- a line number to display the current function at that line number in all current files
-- the letter q to quit the application
+Fri Sep 19 18:46:51 IST 2014
+Status: OK
 
-Potential features:
+3. cwalk -f func_name1
 
-- support other languages beyond C
-- add history support - to go back and forward between commands
-- add autocomplete to complete commands automatically
+# displays results for default path(".") for function func_name1
 
+Fri Sep 19 18:46:51 IST 2014
+Status: OK
 
+4. cwalk -p relative/or/absolute/path/to/project/folder1 -f func_name1
 
+# displays results for specified path (relative/or/absolute/path/to/project/folder1) and func_name ("func_name1")
 
+Fri Sep 19 18:46:51 IST 2014
+Status: OK
 
+5. cwalk -p relative/or/absolute/path/to/project/folder1 -f func_name1 [Enter]
 
+# showing results for specified folder and func_name
+.../foo.c:12
+...
+.../foo.c:20
+...
+.../bar.c:50
+...
+
+cwalk > foo.c [Enter]
+
+# narrowing results for specified folder, func_name and file name ("foo.c")
+
+path1/foo.c:12
+...
+path1/foo.c:20
+...
+another_path2/foo.c:12
+...
+
+cwalk > 12 [Enter]
+
+# displays results for current file name, with line number  = 12
+
+path1/foo.c:12
+...
+another_path2/foo.c:12
+...
+
+Fri Sep 19 18:46:51 IST 2014
+Status: OK
+
+6. cwalk -p relative/or/absolute/path/to/project/folder1 -f func_name1 [Enter]
+
+# shows results for given path and func_name
+...
+
+cwalk > relative/or/absolute/path/to/folder2 [Enter]
+
+...# displays results for func_name1 in new path
+
+7. cwalk -p relative/or/absolute/path/to/project/folder1 -f func_name1 [Enter]
+
+# shows results
+...
+
+cwalk > func_name2
+
+# shows results for func_name2 in path (.../folder1)
+...
+
+8. cwalk -p path/to/folder1 -f func_name1 [Enter]
+
+# shows results
+...
+
+cwalk > foo.c:12
+
+# shows result, if any, in file foo.c line 12 for func_name1
+
+9. Non-existent folder raises ArgumentError
+
+10. Current function not present in any file in current folder returns "No results" message and shows cwalk prompt (user can then enter a different function or different folder)
+
+11. While viewing results, user enters a file name that does not contain the current function name - this returns "No results" message and shows cwalk prompt
+
+12. While viewing results, user enters a function name that has no results in current folder - this returns "No results" message and shows cwalk prompt
+
+13. While viewing results, user enters a line number that has no results - this returns "No results" message and shows cwalk prompt
+
+14. While viewing results, user enters a file name line number combination that is not a valid result for current function/path combination - this returns "No results" message and shows cwalk prompt
+
+15. Non existent functions, files, line numbers are all soft warnings that return no results message.
+
+16. Non existent folder is a hard error, which returns ArgumentError and exits
+
+17. cwalk (with no params) in a folder with no valid results
 
