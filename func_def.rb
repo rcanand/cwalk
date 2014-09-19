@@ -17,8 +17,10 @@ class FunctionDefinition
       matches = file.scan(funcdefpattern) 
       matches.each do |match|
         func = match[0]
-        
-        line = file.split(func).first.scan(/\n/).length + 1
+        line = nil
+        unless(file.split(func).empty?)
+          line = file.split(func).first.scan(/\n/).length + 1
+        end
            
         fd_f_l = FunctionDefinition.add_function_definition name, file_path, line, func 
         raise "Fatal error: unable to add function definition" if fd_f_l.nil?
@@ -113,7 +115,7 @@ class FunctionDefinition
   def print
     @files.each do |f|
       f.lines.each do |l|
-        puts "\n#{@name} found in #{f.path}:#{l.number}\n\n#{l.func}\n\n"
+        puts "\nFunction '#{@name}' found in #{f.path}:#{l.number}\n\n#{l.func}\n\n"
       end
     end
   end
