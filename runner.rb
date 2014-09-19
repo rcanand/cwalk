@@ -45,17 +45,9 @@ class Runner
     folder_path = FolderParser.new(@cmd).folder_path
     puts "Change project folder to #{folder_path}. Sure?(y|n)"
     if(STDIN.getc == 'y')
-      @func_name = nil
-      @file_name = nil
-      FunctionDefinition.clear
       @folder_path = folder_path
-      puts "Folder path changed"
-      while(@func_name.nil? || @func_name.empty?)
-        puts "Enter function name to find > "
-        input = gets.chomp
-        func_name = NameChecker.new(input).name rescue nil
-        @func_name = func_name unless (func_name.nil? || func_name.empty?)
-      end
+      puts "Folder path changed to #{folder_path}"      
+      FunctionDefinition.clear      
       do_start
     else
       puts "Cancelled. No change to folder."
@@ -93,7 +85,7 @@ class Runner
     fs.each do |f|
       l = nil
       l = FunctionDefinition.find_fd_f_l(@func_name, f.path, line_number)[2] rescue nil
-      puts "\n\nIn #{f.path}:#{line}\n\n#{l.func}\n\n" if((!l.nil?) && (!l.empty?) && l.number == line_number)
+      puts "\n\nIn #{f.path}:#{line}\n\n#{l.func}\n\n" if((!l.nil?)  && l.number == line_number)
     end
   end
   
