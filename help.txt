@@ -70,6 +70,9 @@ cwalk > relative/or/absolute/path/to/folder2 [Enter]
 
 ...# displays results for func_name1 in new path
 
+Fri Sep 19 19:20:27 IST 2014
+Status: OK
+
 7. cwalk -p relative/or/absolute/path/to/project/folder1 -f func_name1 [Enter]
 
 # shows results
@@ -80,6 +83,9 @@ cwalk > func_name2
 # shows results for func_name2 in path (.../folder1)
 ...
 
+Fri Sep 19 19:20:27 IST 2014
+Status: OK
+
 8. cwalk -p path/to/folder1 -f func_name1 [Enter]
 
 # shows results
@@ -89,21 +95,50 @@ cwalk > foo.c:12
 
 # shows result, if any, in file foo.c line 12 for func_name1
 
+Fri Sep 19 19:20:27 IST 2014
+Status: OK
+
 9. Non-existent folder raises ArgumentError
+
+Mon Sep 22 11:41:58 IST 2014
+Status: OK
 
 10. Current function not present in any file in current folder returns "No results" message and shows cwalk prompt (user can then enter a different function or different folder)
 
+Tue Sep 23 09:22:57 IST 2014
+Status: OK
+
 11. While viewing results, user enters a file name that does not contain the current function name - this returns "No results" message and shows cwalk prompt
+
+Tue Sep 23 10:04:21 IST 2014
+Status: OK
 
 12. While viewing results, user enters a function name that has no results in current folder - this returns "No results" message and shows cwalk prompt
 
-13. While viewing results, user enters a line number that has no results - this returns "No results" message and shows cwalk prompt
+Tue Sep 23 10:04:21 IST 2014
+Status: OK
 
-14. While viewing results, user enters a file name line number combination that is not a valid result for current function/path combination - this returns "No results" message and shows cwalk prompt
+>>>>13. While viewing results, user enters a line number that has no results - this returns "No results" message and shows cwalk prompt
 
-15. Non existent functions, files, line numbers are all soft warnings that return no results message.
+Works first time, but after some other options, gives blank result
+
+>>>>>14. While viewing results, user enters a file name line number combination that is not a valid result for current function/path combination - this returns "No results" message and shows cwalk prompt
+
+validfile:invalidnumber shows validfile:validnumber result
+
+15. Non existent functions, files, line numbers, file-linenumber pairs are all soft warnings that return no results message.
+
+Tue Sep 23 10:13:10 IST 2014
+Status: OK
 
 16. Non existent folder is a hard error, which returns ArgumentError and exits
 
+Tue Sep 23 10:13:10 IST 2014
+Status: OK
+
 17. cwalk (with no params) in a folder with no valid results
 
+Tue Sep 23 10:13:10 IST 2014
+Status: OK
+
+>>>>18. Readline history not recording file names, etc. - showing some other history

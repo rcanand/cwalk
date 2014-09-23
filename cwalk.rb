@@ -9,7 +9,7 @@ require_relative 'runner'
 
 DEFAULT_PATH_NAME = "."
 DEFAULT_FUNC_NAME = "main"
-
+DEBUG_MODE = true
 def parse_options options
   parser = OptionParser.new do |opts|
     opts.banner = 'cwalk [options]\n\n(q to exit)'
@@ -22,22 +22,35 @@ def parse_options options
       options[:funcname] = func
     end
   end
-  parser.parse!
+  begin
+    parser.parse!
+  rescue OptionParser::InvalidOption, OptionParser::MissingArgument
+    puts $!.to_s
+    puts parser
+    exit!    
+  end
 end
 
 options = {}
 
-def main options  
-  parse_options options
-  folder_path = FolderParser.new(options[:pathname] || DEFAULT_PATH_NAME).folder_path
-  func_name = NameChecker.new(options[:funcname] || DEFAULT_FUNC_NAME).name
+def main options
+  begin
+    parse_options options
+    folder_path = FolderParser.new(options[:pathname] || DEFAULT_PATH_NAME).folder_path
+    func_name = NameChecker.new(options[:funcname] || DEFAULT_FUNC_NAME).name
 
-  runner = Runner.new(folder_path, func_name)
+    runner = Runner.new(folder_path, func_name)
 
-  prompt = "cwalk(q to exit)> "
-  while(runner.cmd != 'q')  
-    runner.run
-    runner.cmd = Readline.readline(prompt, true)
+    prompt = "cwalk(q to exit)> "
+    while(runner.cmd != 'q')  
+      runner.run
+      runner.cmd = Readline.readline(prompt, true)
+    end    
+  rescue Exception => e
+    puts "#{e.class} : #{$!}"
+    puts $@ if(DEBUG_MODE)
+    puts "Exiting..."
+    exit      
   end
 end
 
