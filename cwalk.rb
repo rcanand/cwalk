@@ -1,5 +1,5 @@
 #! /usr/bin/env ruby
-require 'byebug'
+# require 'byebug'
 require 'optparse'
 require 'readline'
 require_relative 'folder_parser'
@@ -12,14 +12,20 @@ DEFAULT_FUNC_NAME = "main"
 DEBUG_MODE = true
 def parse_options options
   parser = OptionParser.new do |opts|
-    opts.banner = 'cwalk [options]\n\n(q to exit)'
+    opts.banner = 'cwalk [options]'
 
-    opts.on("-p PATHNAME","--path","The path to look for") do |path|
+    opts.on("-p PATHNAME","--path","The path to look for (optional), defaults to current directory") do |path|
       options[:pathname] = path
     end
 
-    opts.on("-f FUNCNAME","--func","The entry point function") do |func|
+    opts.on("-f FUNCNAME","--func","The entry point function (optional), defaults to \'main\'") do |func|
       options[:funcname] = func
+    end
+    
+    opts.on('-h', '--help', 'Display this screen') do
+      puts opts
+      puts "\nInteractive commands: [folder_path] | [source_file_name] | [source_file_name]:[line_number] | line_number | q(to quit)\n\n"
+      exit!
     end
   end
   begin
@@ -27,6 +33,7 @@ def parse_options options
   rescue OptionParser::InvalidOption, OptionParser::MissingArgument
     puts $!.to_s
     puts parser
+    puts "\nInteractive commands: [folder_path]|[source_file_name]|[source_file_name]:[line_number]|line_number|q(to quit)\n\n"
     exit!    
   end
 end

@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
 
 require 'minitest/autorun'
-require 'byebug'
+# require 'byebug'
 require_relative '../func_def'
 
 class TestFunctionDefinition < MiniTest::Test
