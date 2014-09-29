@@ -12,17 +12,17 @@ class Runner
       @folder_path = FolderParser.new(folder_path).folder_path      
       @folder_path ||= FolderParser.new('.').folder_path      
       @func_name = NameChecker.new(func_name).name
-      @func_name ||= NameChecker.new("main").name      
+      @func_name ||= NameChecker.new('main').name      
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
     
     @file_name = nil
     @history = []
-    @cmd = "" # no cmd at start of program    
+    @cmd = '' # no cmd at start of program    
   end
     
   def do_start
@@ -48,7 +48,7 @@ class Runner
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
   end
@@ -64,35 +64,35 @@ class Runner
         FunctionDefinition.clear      
         do_start
       else
-        puts "Cancelled. No change to folder."
+        puts 'Cancelled. No change to folder.'
       end
       
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end    
   end
   
   def do_func_name
     begin
-      raise StandardError.new("Cannot search for function name without a valid folder") if (@folder_path.nil? || @folder_path.empty?)
+      raise StandardError.new('Cannot search for function name without a valid folder') if (@folder_path.nil? || @folder_path.empty?)
       puts "Using folder #{@folder_path}"
       @func_name = NameChecker.new(@cmd.chomp).name
       do_start      
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
   end
   
   def do_files
     begin
-      raise StandardError.new("Invalid folder") if (@folder_path.nil? || @folder_path.empty?)
-      raise StandardError.new("Invalid function name") if (@func_name.nil? || @func_name.empty?)
+      raise StandardError.new('Invalid folder') if (@folder_path.nil? || @folder_path.empty?)
+      raise StandardError.new('Invalid function name') if (@func_name.nil? || @func_name.empty?)
       @file_name = @cmd.chomp
       fs = FunctionDefinition.find_fd_fname(@func_name, @file_name)[1] rescue nil
       if(fs.nil?)
@@ -103,15 +103,15 @@ class Runner
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end    
   end
   
   def do_files_line
     begin
-      raise StandardError.new("Invalid folder") if (@folder_path.nil? || @folder_path.empty?)
-      raise StandardError.new("Invalid function name") if (@func_name.nil? || @func_name.empty?)
+      raise StandardError.new('Invalid folder') if (@folder_path.nil? || @folder_path.empty?)
+      raise StandardError.new('Invalid function name') if (@func_name.nil? || @func_name.empty?)
 
       file_name, line = @cmd.split(':')
     
@@ -122,7 +122,7 @@ class Runner
       else      
         line.chomp!
         line_number = Integer(line)
-        ls = ""
+        ls = ''
         fs.each do |f|
           l = nil
           l = FunctionDefinition.find_fd_f_l(@func_name, f.path, line_number)[2] rescue nil
@@ -137,22 +137,22 @@ class Runner
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
   end
   
   def do_line
     begin
-      raise StandardError.new("Invalid folder") if (@folder_path.nil? || @folder_path.empty?)
-      raise StandardError.new("Invalid function name") if (@func_name.nil? || @func_name.empty?)
+      raise StandardError.new('Invalid folder') if (@folder_path.nil? || @folder_path.empty?)
+      raise StandardError.new('Invalid function name') if (@func_name.nil? || @func_name.empty?)
   
       line_number = Integer(@cmd.chomp)
       fs = FunctionDefinition.find_fd_fname(@func_name, @file_name)[1] rescue nil
       if(fs.nil?)
         puts "\n\nNo results to show. try another search\n\n"
       else      
-        ls = ""  
+        ls = ''  
         fs.each do |f|
           l = nil
           l = f.lines.find do |ln|
@@ -170,14 +170,14 @@ class Runner
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
   end
   
   def cmd_type
     begin
-      if(@cmd == "" && @history.empty?)
+      if(@cmd == '' && @history.empty?)
         return :start
       else  
         folder_path = FolderParser.new(@cmd).folder_path rescue nil
@@ -206,7 +206,7 @@ class Runner
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
   end
@@ -223,7 +223,7 @@ class Runner
     rescue Exception => e
       puts "#{e.class} : #{$!}"
       puts $@ if(DEBUG_MODE)
-      puts "Exiting..."
+      puts 'Exiting...'
       exit      
     end
   end

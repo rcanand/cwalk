@@ -23,7 +23,7 @@ class FunctionDefinition
         end
            
         fd_f_l = FunctionDefinition.add_function_definition name, file_path, line, func 
-        raise "Fatal error: unable to add function definition" if fd_f_l.nil?
+        raise 'Fatal error: unable to add function definition' if fd_f_l.nil?
       end
     end
     

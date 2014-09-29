@@ -4,8 +4,8 @@ require_relative '../runner.rb'
 
 class TestRunner < MiniTest::Test
   def setup
-    @good_folder_path = "./test/__test__/good"
-    @a_func_name = "a"
+    @good_folder_path = './test/__test__/good'
+    @a_func_name = 'a'
     @commented_line_number = 6
     @runner_good = Runner.new(@good_folder_path, @a_func_name)
   end
@@ -20,14 +20,14 @@ class TestRunner < MiniTest::Test
     assert(files.count>0)
     file_paths = files.map(&:path)
     file_names = file_paths.map{|p|File.basename(p)}
-    assert(file_names.include?("a.c"))
+    assert(file_names.include?('a.c'))
     
     # ****
-    assert(file_names.include?("a2.c"))
+    assert(file_names.include?('a2.c'))
     # ****
     
-    refute(file_names.include?("a.rb"))  
-    a_c_file = files.find{|f| File.basename(f.path) == "a.c"} 
+    refute(file_names.include?('a.rb'))  
+    a_c_file = files.find{|f| File.basename(f.path) == 'a.c'} 
     lines = a_c_file.lines
     line_numbers = lines.map(&:number)
     assert(line_numbers.include?(1) && line_numbers.include?(9))
@@ -35,22 +35,22 @@ class TestRunner < MiniTest::Test
     
   def test_folder_func_filter_valid_filename_works_with_single_file_match
     @runner_good.run
-    @runner_good.cmd = "a2.c"
+    @runner_good.cmd = 'a2.c'
     @runner_good.run
     files = FunctionDefinition.func_def.files
     assert(files.count>0)
     file_paths = files.map(&:path)
     file_names = file_paths.map{|p|File.basename(p)}
-    assert(file_names.include?("a2.c"))
+    assert(file_names.include?('a2.c'))
 
-    assert_equal(1, file_names.count("a2.c"))
+    assert_equal(1, file_names.count('a2.c'))
     
     # ****
-    assert_equal(2, file_names.count("a.c"))      
+    assert_equal(2, file_names.count('a.c'))      
     # ****
     
-    refute(file_names.include?("a.rb"))  
-    a2_c_file = files.find{|f| File.basename(f.path) == "a2.c"} 
+    refute(file_names.include?('a.rb'))  
+    a2_c_file = files.find{|f| File.basename(f.path) == 'a2.c'} 
     lines = a2_c_file.lines
     line_numbers = lines.map(&:number)
     puts line_numbers.inspect
@@ -59,21 +59,21 @@ class TestRunner < MiniTest::Test
 
   def test_folder_func_filter_valid_filename_works_with_multiple_file_path_matches
     @runner_good.run
-    @runner_good.cmd = "a.c"
+    @runner_good.cmd = 'a.c'
     @runner_good.run
     files = FunctionDefinition.func_def.files
     assert(files.count>0)
     file_paths = files.map(&:path)
     file_names = file_paths.map{|p|File.basename(p)}
-    assert(file_names.include?("a.c"))
-    assert_equal(2, file_names.count("a.c"))
+    assert(file_names.include?('a.c'))
+    assert_equal(2, file_names.count('a.c'))
     
     # ****
-    refute(file_names.include?("a2.c"))      
+    refute(file_names.include?('a2.c'))      
     # ****
     
-    refute(file_names.include?("a.rb"))  
-    a_c_file = files.find{|f| File.basename(f.path) == "a.c"} 
+    refute(file_names.include?('a.rb'))  
+    a_c_file = files.find{|f| File.basename(f.path) == 'a.c'} 
     lines = a_c_file.lines
     line_numbers = lines.map(&:number)
     assert(line_numbers.include?(1) && line_numbers.include?(9))

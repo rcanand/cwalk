@@ -4,15 +4,15 @@ require_relative '../folder_parser.rb'
 
 class TestFolderParser < MiniTest::Test
   def setup
-    @valid_folder = File.expand_path("./test/__test__")
-    @invalid_folder = "./nofolder"
-    @file_path = "./test_folder_parser.rb"
+    @valid_folder = File.expand_path('./test/__test__')
+    @invalid_folder = './nofolder'
+    @file_path = './test_folder_parser.rb'
   end
   
   def test_cannot_pass_nil_to_folder_parser
     assert_raises(ArgumentError){FolderParser.new}
-    assert_raises(ArgumentError){FolderParser.new("")}
-    assert_raises(ArgumentError){FolderParser.new(" ")}
+    assert_raises(ArgumentError){FolderParser.new('')}
+    assert_raises(ArgumentError){FolderParser.new(' ')}
     assert_raises(ArgumentError){FolderParser.new("\t")}
     assert_raises(ArgumentError){FolderParser.new("\n")}
   end
