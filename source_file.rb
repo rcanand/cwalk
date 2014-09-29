@@ -1,3 +1,5 @@
+require 'coderay'
+
 class SourceFile
   attr_accessor :path, :lines
   
@@ -8,7 +10,7 @@ class SourceFile
   
   def print
     @lines.each do |l|
-      puts "\nIn #{@path}:#{l.number}\n\n#{l.func}\n\n"
+      puts "\nIn #{@path}:#{l.number}\n\n#{CodeRay.scan(l.func, :c).term}\n\n"
     end
   end
 end

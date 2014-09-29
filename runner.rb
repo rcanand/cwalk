@@ -3,6 +3,7 @@ require 'optparse'
 require_relative 'folder_parser'
 require_relative 'name_checker'
 require_relative 'func_def'
+require 'coderay'
 
 class Runner
   attr_accessor :folder_path, :func_name, :file_name, :cmd, :history
@@ -126,7 +127,7 @@ class Runner
         fs.each do |f|
           l = nil
           l = FunctionDefinition.find_fd_f_l(@func_name, f.path, line_number)[2] rescue nil
-          ls += "\n\nIn #{f.path}:#{line}\n\n#{l.func}\n\n" if((!l.nil?)  && l.number == line_number)
+          ls += "\n\nIn #{f.path}:#{line}\n\n#{CodeRay.scan(l.func, :c).term}\n\n" if((!l.nil?)  && l.number == line_number)
         end      
         if ls.empty?
           puts "\n\nNo results to show. try another search\n\n"
@@ -159,7 +160,7 @@ class Runner
             ln.number == line_number
           end
     
-          ls += "\n\nIn #{f.path}:#{line_number}\n\n#{l.func}\n\n" if((!l.nil?) && (!l.func.empty?) && l.number == line_number)
+          ls += "\n\nIn #{f.path}:#{line_number}\n\n#{CodeRay.scan(l.func, :c).term}\n\n" if((!l.nil?) && (!l.func.empty?) && l.number == line_number)
         end      
         if ls.empty?
           puts "\n\nNo results to show. try another search\n\n"

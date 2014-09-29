@@ -1,3 +1,4 @@
+require 'coderay'
 require_relative 'source_file'
 require_relative 'source_line'
 
@@ -115,7 +116,7 @@ class FunctionDefinition
   def print
     @files.each do |f|
       f.lines.each do |l|
-        puts "\nFunction '#{@name}' found in #{f.path}:#{l.number}\n\n#{l.func}\n\n"
+        puts "\nFunction '#{@name}' found in #{f.path}:#{l.number}\n\n#{CodeRay.scan(l.func, :c).term}\n\n"
       end
     end
   end
